@@ -1,0 +1,85 @@
+import java.util.*;
+
+public class Dijsktra
+{
+	public static void main(String[] args)
+	{
+		int n,i,j,src;		
+		
+		int d[]=new int[20];
+		int visited[]=new int[20];
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the order of matrix");
+		n = sc.nextInt();
+		int adj[][]=new int[n][n];
+		System.out.println("enter the cost of matrix");
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n;j++) 
+			{
+				adj[i][j]=sc.nextInt();
+			}
+		}
+		System.out.println("enter the src");
+		src=sc.nextInt();
+		dijkstras(src,adj,visited,d,n);
+		 
+		for(i=0;i<n;i++)
+		{
+			if(i!=src)
+			{
+				System.out.println("distance from source" +src+"  to  "+i+"  is  "+d[i]);
+				
+			}
+		}
+				
+			
+		
+				
+	}
+	
+	static void dijkstras(int src,int adj[][],int visited[],int d[],int n)
+	{
+		
+		int i,j,min,u = 0,w;
+		for(i=0;i<n;i++)
+		{
+			visited[i]=0;
+			d[i]=adj[src][i];
+		}
+		
+			
+		visited[src]=1;
+		d[src]=0;
+		for(j=0;j<n;j++)
+		{
+			min=999;
+			for(i=0;i<n;i++)
+			{
+				if(visited[i]!=1)
+				{
+					if(d[i]<min)
+					{
+						min=d[i];
+						u=i;
+						
+					}
+				}
+			}
+			visited[u]=1;
+			for(int v=0;v<n;v++)
+			{
+				if(adj[u][v]!=999&&visited [v]==0)
+				{
+					if(d[v]>adj[u][v]+d[u])
+					{
+						d[v]=adj[u][v]+d[u];
+					}
+				}
+			}
+			
+		}
+		
+	}
+}
